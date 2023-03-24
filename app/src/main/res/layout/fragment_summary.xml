@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="summaryFragment"
+            type="com.rabarka.lunchtray.ui.SummaryFragment" />
+
+        <variable
+            name="viewModel"
+            type="com.rabarka.lunchtray.LunchViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="8dp"
+        tools:context=".ui.SummaryFragment">
+
+        <TextView
+            android:id="@+id/order_summary_tv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/order_summary"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/mainDishTV"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@{viewModel.mainDishName}"
+            app:layout_constraintEnd_toStartOf="@id/mainDishPriceTv"
+            app:layout_constraintStart_toStartOf="@id/order_summary_tv"
+            app:layout_constraintTop_toBottomOf="@id/order_summary_tv" />
+
+        <TextView
+            android:id="@+id/mainDishPriceTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{viewModel.mainDishPrice.toString()}"
+            app:layout_constraintBottom_toBottomOf="@+id/mainDishTV"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/mainDishTV"
+            app:layout_constraintTop_toTopOf="@id/mainDishTV" />
+
+        <TextView
+            android:id="@+id/sideDishTV"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@{viewModel.sideDishName}"
+            app:layout_constraintEnd_toStartOf="@id/sideDishPriceTv"
+            app:layout_constraintStart_toStartOf="@id/mainDishTV"
+            app:layout_constraintTop_toBottomOf="@id/mainDishTV" />
+
+        <TextView
+            android:id="@+id/sideDishPriceTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{viewModel.sideDishPrice.toString()}"
+            app:layout_constraintBottom_toBottomOf="@+id/sideDishTV"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/sideDishTV"
+            app:layout_constraintTop_toTopOf="@id/sideDishTV" />
+
+        <TextView
+            android:id="@+id/extraDishTV"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@{viewModel.extraDishName}"
+            app:layout_constraintEnd_toStartOf="@id/extraDishPriceTv"
+            app:layout_constraintStart_toStartOf="@id/sideDishTV"
+            app:layout_constraintTop_toBottomOf="@id/sideDishTV" />
+
+        <TextView
+            android:id="@+id/extraDishPriceTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{viewModel.extraDishPrice.toString()}"
+            app:layout_constraintBottom_toBottomOf="@+id/extraDishTV"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/extraDishTV"
+            app:layout_constraintTop_toTopOf="@id/extraDishTV" />
+
+        <com.google.android.material.divider.MaterialDivider
+            android:id="@+id/divider"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/extraDishTV" />
+
+        <TextView
+            android:id="@+id/subTotalTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{@string/sub_total(viewModel.subTotalPrice)}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/divider" />
+
+        <TextView
+            android:id="@+id/taxTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{@string/tax(viewModel.tax)}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/subTotalTv" />
+
+        <TextView
+            android:id="@+id/totalTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{@string/total(viewModel.totalPrice)}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/taxTv" />
+
+        <Button
+            android:id="@+id/submitButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="@{() -> summaryFragment.submitOrder()}"
+            android:text="@string/submit_order"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/totalTv" />
+
+        <Button
+            style="?attr/materialButtonOutlinedStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="@{() -> summaryFragment.cancelOrder()}"
+            android:text="@string/cancel"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/submitButton" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
